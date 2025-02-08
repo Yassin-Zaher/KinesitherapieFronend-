@@ -35,7 +35,7 @@ export default function LoginAuthAdmin() {
     };
 
     api
-      .post("/api/v1/admins/login", payload)
+      .post("/api/auth/login", payload)
       .then((res) => {
         setResultLogin(res.data);
         setProperties({

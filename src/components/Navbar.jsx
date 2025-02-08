@@ -17,7 +17,7 @@ export default function Navbar() {
           <div className="flex flex-row items-center">
             <PlusCircleIcon className="h-6 w-6 text-maingreen-100" />
             <a href="/" className="text-maingreen-100 font-bold text-xl">
-              Hospital Management System
+              kinesitherapie Management System
             </a>
           </div>
           <div>

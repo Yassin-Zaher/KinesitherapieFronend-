@@ -13,8 +13,8 @@ export default function Home() {
         <div className="text-center sm:text-left">
           <div>
             <h1 className="text-4xl text-center md:text-left font-bold">
-              Welcome To <br />
-              Hospital Management
+              <br />
+              kinesitherapie Management
               <br /> System
             </h1>
           </div>
