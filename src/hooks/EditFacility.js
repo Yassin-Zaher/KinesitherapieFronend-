@@ -33,9 +33,10 @@ export default function EditFacility() {
       queue: parseInt(payload.queue),
       location: payload.location,
       capacity: parseInt(payload.capacity),
+      status: payload.status,
     };
     api
-      .put(`/api/v1/admins/update/facilty/${id}`, payload)
+      .put(`/api/salles/${id}`, payload)
       .then((res) => {
         setResultEditFacility(res.data);
         setSubmitted(true);

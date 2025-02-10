@@ -34,6 +34,3 @@ health facilities in second-third tier cities.
 - Axios
 - React Router V6
 
-## Documentation
-- [Figma](https://www.figma.com/file/BW55i7s9OkaxDUxSotQsnY/Hospital-Management-System?node-id=23%3A10866)
-

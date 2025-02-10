@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField } from "@mui/material";
+import { MenuItem, Select, TextField } from "@mui/material";
 import Modal from "../Modal";
 import EditFacility from "../../hooks/EditFacility";
 
@@ -7,12 +7,23 @@ export default function ModalEditFacility(props) {
   const { open, onClose, rowData, refresh, setRefresh } = props;
   const { sendDataToServer, submitted } = EditFacility();
 
+  const statusOptions = [
+    { value: "AVAILABLE", label: "Disponible" },
+    { value: "IN_USE", label: "En cours d'utilisation" },
+    { value: "MAINTENANCE", label: "En maintenance" },
+    { value: "OCCUPIED", label: "Occupé" },
+    { value: "UNDER_MAINTENANCE", label: "En réparation" },
+    { value: "FUNCTIONAL", label: "Fonctionnel" },
+    { value: "BROKEN", label: "Défectueux" },
+  ];
+
   const initState = {
     id: rowData[0],
     name: rowData[1],
     capacity: rowData[2],
     location: rowData[3],
     queue: rowData[4],
+    status: rowData[5],
   };
 
   const initFormErr = {
@@ -20,6 +31,7 @@ export default function ModalEditFacility(props) {
     queue: "",
     capacity: "",
     location: "",
+    status: "",
   };
 
   const [valueForm, setvalueForm] = useState(initState);
@@ -50,6 +62,23 @@ export default function ModalEditFacility(props) {
         setformErr({ ...formErr, [name]: "" });
       } else {
         setformErr({ ...formErr, [name]: "Queue must be 1 -3 digits" });
+      }
+    }
+
+    if (name === "status") {
+      const validStatuses = [
+        "AVAILABLE",
+        "IN_USE",
+        "MAINTENANCE",
+        "OCCUPIED",
+        "UNDER_MAINTENANCE",
+        "FUNCTIONAL",
+        "BROKEN",
+      ];
+      if (validStatuses.includes(value)) {
+        setformErr({ ...formErr, [name]: "" });
+      } else {
+        setformErr({ ...formErr, [name]: "Invalid Status" });
       }
     }
 
@@ -87,7 +116,8 @@ export default function ModalEditFacility(props) {
       formErr.name === "" &&
       formErr.queue === "" &&
       formErr.capacity === "" &&
-      formErr.location === ""
+      formErr.location === "" &&
+      formErr.status === ""
     ) {
       sendDataToServer(valueForm);
       setRefresh(false);
@@ -172,6 +202,21 @@ export default function ModalEditFacility(props) {
             variant="outlined"
             size="small"
           />
+        </div>
+        <div className="my-4">
+          <Select
+            fullWidth
+            required
+            value={valueForm.status} // Default to "AVAILABLE" if status is not set
+            name="status"
+            onChange={onChange}
+          >
+            {statusOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
         </div>
         <div className="flex flex-col justify-center gap-2 mx-4  md:justify-end md:flex-row">
           <button onSubmit={onClick} className="btn-main btn-primary">

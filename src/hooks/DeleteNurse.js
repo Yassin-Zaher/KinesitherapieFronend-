@@ -22,7 +22,7 @@ export default function DeleteNurse() {
   const sendDataToServer = (payload) => {
     let id = payload.id;
     api
-      .delete(`/api/v1/admins/delete/nurse/${id}`)
+      .delete(`/api/users/secretaires/${id}`)
       .then((res) => {
         setResultDeleteNurse(res.data);
         setSubmitted(true);

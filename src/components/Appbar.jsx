@@ -40,7 +40,7 @@ export default function Appbar(props) {
         <div className="flex w-full">
           <div className="grow py-2 invisible sm:visible">
             <h2 className="text-black">
-              {format(new Date(), "EEEE, dd MMMM yyyy", { locale: idLocale })}
+              {format(new Date(), " dd MMMM yyyy", { locale: idLocale })}
             </h2>
           </div>
           <div className="flex-none">

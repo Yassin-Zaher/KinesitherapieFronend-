@@ -26,7 +26,7 @@ export default function NurseManagemet() {
   const columns = [
     { name: "id", label: "ID", options: { sort: true } },
     {
-      name: "fullname",
+      name: "nom",
       label: "Name Nurse",
       options: {
         filter: true,
@@ -34,8 +34,8 @@ export default function NurseManagemet() {
       },
     },
     {
-      name: "username",
-      label: "Username",
+      name: "email",
+      label: "Email",
       options: {
         filter: false,
         sort: false,
@@ -165,23 +165,27 @@ export default function NurseManagemet() {
     },
   };
 
-  let newData = [];
-  newData = dataNurses.data?.map((item) => {
-    return {
-      id: item.id,
-      fullname: item.fullname,
-      username: item.username,
-      address: item.address,
-      phone_number: item.phone_number,
-      gender: item.gender,
-      dob: item.dob,
-    };
-  });
+  //let newData = [];
+  const newData = Array.isArray(dataNurses)
+    ? dataNurses.map((item) => ({
+        id: item.id,
+        nom: item.nom,
+        email: item.email,
+        prenom: item.prenom,
+        password: item.password,
+        address: item.address,
+        phoneNumber: item.phoneNumber,
+        gender: item.gender,
+        dob: item.dob,
+      }))
+    : [];
 
   return (
     <div className="min-h-screen">
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-left">Nurse Management</h1>
+        <h1 className="text-2xl font-semibold text-left">
+          Secretaire Management
+        </h1>
       </div>
       <div>
         <MUIDataTable

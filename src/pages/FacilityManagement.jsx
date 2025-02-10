@@ -27,7 +27,7 @@ export default function FaciltyManagement() {
     { name: "id", label: "ID", options: { sort: true } },
     {
       name: "name",
-      label: "Name Facility",
+      label: "Name Salle",
       options: {
         filter: true,
         sort: true,
@@ -57,6 +57,15 @@ export default function FaciltyManagement() {
         sort: true,
       },
     },
+    {
+      name: "status",
+      label: "Salle Status",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+
     {
       name: "action",
       label: "Action",
@@ -142,8 +151,9 @@ export default function FaciltyManagement() {
         capacity: item.capacity,
         location: item.location,
         queue: item.queue,
+        status: item.status,
       }))
-    : []; // If dataFacilities isn't an array, default to an empty array
+    : [];
 
   return (
     <div className="min-h-screen">
@@ -152,7 +162,7 @@ export default function FaciltyManagement() {
       </div>
       <div>
         <MUIDataTable
-          title={"Facilty List"}
+          title={"Salles List"}
           data={newData}
           columns={columns}
           options={options}

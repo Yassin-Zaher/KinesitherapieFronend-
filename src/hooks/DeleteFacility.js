@@ -22,7 +22,7 @@ export default function DeleteFacility() {
   const sendDataToServer = (payload) => {
     let id = payload.id;
     api
-      .delete(`/api/v1/admins/delete/facilty/${id}`, payload)
+      .delete(`/api/salles/${id}`, payload)
       .then((res) => {
         setResultDeleteFacility(res.data);
         setSubmitted(true);

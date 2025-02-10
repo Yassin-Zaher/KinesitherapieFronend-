@@ -1,5 +1,12 @@
 import { HomeIcon, UserGroupIcon } from "@heroicons/react/solid";
-import { PencilAltIcon, ClipboardListIcon, ClockIcon, OfficeBuildingIcon, UsersIcon, ViewGridIcon } from "@heroicons/react/outline";
+import {
+  PencilAltIcon,
+  ClipboardListIcon,
+  ClockIcon,
+  OfficeBuildingIcon,
+  UsersIcon,
+  ViewGridIcon,
+} from "@heroicons/react/outline";
 
 const menuItems = [
   {
@@ -28,7 +35,7 @@ const menuItems = [
     path: "/session-schedule-management",
   },
   {
-    text: "Facilty Management",
+    text: "Salle Management",
     icon: <OfficeBuildingIcon className="h-5 w-5 mr-2" />,
     path: "/facilty-management",
   },

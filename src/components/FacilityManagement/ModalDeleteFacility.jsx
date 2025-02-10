@@ -38,7 +38,7 @@ export default function ModalDeleteFacility(props) {
   return (
     <Modal open={open} onClose={onClose} title="Delete Facility">
       <form onSubmit={onClick}>
-        <h1>{`Are you sure to delete this data with ID : ${valueForm.id} and Facility : ${valueForm.facility} `}</h1>
+        <h1>{`Are you sure to delete this data with ID : ${valueForm.id} and Name : ${valueForm.name} `}</h1>
         <div className="flex justify-end gap-2 mt-5">
           <button onSubmit={onClick} className="btn-main btn-primary">
             Submit

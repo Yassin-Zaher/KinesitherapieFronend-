@@ -24,7 +24,7 @@ export default function GetDataNurses(refresh) {
   });
 
   const getDataNurses = () => {
-    api.get("/api/v1/admins/list/nurse").then((res) => {
+    api.get("/api/users/secretaires").then((res) => {
       setDataNurses(res.data);
       setProperties({
         loading: false,

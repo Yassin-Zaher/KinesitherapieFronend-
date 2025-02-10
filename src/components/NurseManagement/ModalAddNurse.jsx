@@ -18,10 +18,11 @@ export default function ModalAddNurse(props) {
   const { resultAddNurse, sendDataToServer, submitted } = AddNurse();
 
   const initState = {
-    fullname: "",
-    username: "",
-    password: "",
-    phone_number: "",
+    nom: "",
+    prenom: "",
+    email: "",
+    motDePasse: "",
+    phoneNumber: "",
     address: "",
     dob: "",
     gender: "",
@@ -33,10 +34,11 @@ export default function ModalAddNurse(props) {
   };
 
   const initFormErr = {
-    fullname: "",
-    username: "",
-    password: "",
-    phone_number: "",
+    nom: "",
+    prenom: "",
+    email: "",
+    motDePasse: "",
+    phoneNumber: "",
     address: "",
     dob: "",
     gender: "",
@@ -48,16 +50,16 @@ export default function ModalAddNurse(props) {
   const [formErr, setformErr] = useState(initFormErr);
 
   const regexName = /^[A-Za-z ]*$/;
-  const regexUsername = /^[A-Za-z0-9]*$/;
-  const regexPassword = /^[A-Za-z0-9]*$/;
-  const regexPhone = /^[0-9]{11,12}$/;
+  const regexemail = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+  const regexmotDePasse = /^[A-Za-z0-9]*$/;
+  const regexPhone = /^[0-9]{8,12}$/;
   const regexAddress = /^[a-zA-Z0-9\s,'-]*$/;
 
   const onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    if (name === "fullname") {
+    if (name === "nom") {
       if (regexName.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
@@ -65,27 +67,30 @@ export default function ModalAddNurse(props) {
       }
     }
 
-    if (name === "username") {
-      if (regexUsername.test(value)) {
+    if (name === "email") {
+      if (regexemail.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
-        setformErr({ ...formErr, [name]: "Invalid Username" });
+        setformErr({ ...formErr, [name]: "Invalid email" });
       }
     }
 
-    if (name === "password") {
-      if (regexPassword.test(value)) {
+    if (name === "motDePasse") {
+      if (regexmotDePasse.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
-        setformErr({ ...formErr, [name]: "Invalid Password" });
+        setformErr({ ...formErr, [name]: "Invalid motDePasse" });
       }
     }
 
-    if (name === "phone_number") {
+    if (name === "phoneNumber") {
       if (regexPhone.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
-        setformErr({ ...formErr, [name]: "Phone number must be filled in 11 -12 digits" });
+        setformErr({
+          ...formErr,
+          [name]: "Phone number must be filled in 11 -12 digits",
+        });
       }
     }
 
@@ -113,14 +118,16 @@ export default function ModalAddNurse(props) {
   const onClick = (e) => {
     e.preventDefault();
     if (
-      formErr.fullname === "" &&
-      formErr.username === "" &&
-      formErr.password === "" &&
-      formErr.phone_number === "" &&
+      formErr.nom === "" &&
+      formErr.email === "" &&
+      formErr.motDePasse === "" &&
+      formErr.phoneNumber === "" &&
       formErr.address === "" &&
       valueForm.dob !== "" &&
       valueForm.gender !== ""
     ) {
+      console.log(valueForm);
+
       sendDataToServer(valueForm);
       setRefresh(false);
       setSubmittedForm(true);
@@ -132,16 +139,12 @@ export default function ModalAddNurse(props) {
       onClose();
       setSubmittedForm(false);
       setRefresh(true);
-      setMessage({
-        status: true,
-        message: "",
-      });
-    } else {
+    } /* else {
       setMessage({
         status: false,
         message: resultAddNurse.meta.messages,
       });
-    }
+    } */
   }, [submitted, submittedForm, refresh, resultAddNurse]);
 
   return (
@@ -149,15 +152,51 @@ export default function ModalAddNurse(props) {
       <form onSubmit={onClick}>
         <div className="my-4">
           <TextField
-            {...(formErr.fullname !== ""
-              ? { error: true, helperText: formErr.fullname }
+            {...(formErr.nom !== ""
+              ? { error: true, helperText: formErr.nom }
               : null)}
             fullWidth
             required
             id="outlined-basic"
-            label="Fullname"
-            name="fullname"
-            value={valueForm.fullname}
+            label="nom"
+            name="nom"
+            value={valueForm.nom}
+            onChange={onChange}
+            color="primary"
+            variant="outlined"
+            size="small"
+          />
+        </div>
+
+        <div className="my-4">
+          <TextField
+            {...(formErr.prenom !== ""
+              ? { error: true, helperText: formErr.prenom }
+              : null)}
+            fullWidth
+            required
+            id="outlined-basic"
+            label="prenom"
+            name="prenom"
+            value={valueForm.prenom}
+            onChange={onChange}
+            color="primary"
+            variant="outlined"
+            size="small"
+          />
+        </div>
+
+        <div className="my-4">
+          <TextField
+            {...(formErr.email !== ""
+              ? { error: true, helperText: formErr.email }
+              : null)}
+            fullWidth
+            required
+            id="outlined-basic"
+            label="Email"
+            name="email"
+            value={valueForm.email}
             onChange={onChange}
             color="primary"
             variant="outlined"
@@ -166,15 +205,15 @@ export default function ModalAddNurse(props) {
         </div>
         <div className="my-4">
           <TextField
-            {...(formErr.username !== ""
-              ? { error: true, helperText: formErr.username }
+            {...(formErr.motDePasse !== ""
+              ? { error: true, helperText: formErr.motDePasse }
               : null)}
             fullWidth
             required
             id="outlined-basic"
-            label="Username"
-            name="username"
-            value={valueForm.username}
+            label="motDePasse"
+            name="motDePasse"
+            value={valueForm.motDePasse}
             onChange={onChange}
             color="primary"
             variant="outlined"
@@ -183,39 +222,22 @@ export default function ModalAddNurse(props) {
         </div>
         <div className="my-4">
           <TextField
-            {...(formErr.password !== ""
-              ? { error: true, helperText: formErr.password }
-              : null)}
-            fullWidth
-            required
-            id="outlined-basic"
-            label="Password"
-            name="password"
-            value={valueForm.password}
-            onChange={onChange}
-            color="primary"
-            variant="outlined"
-            size="small"
-          />
-        </div>
-        <div className="my-4">
-          <TextField
-            {...(formErr.phone_number !== ""
-              ? { error: true, helperText: formErr.phone_number }
+            {...(formErr.phoneNumber !== ""
+              ? { error: true, helperText: formErr.phoneNumber }
               : null)}
             fullWidth
             required
             id="outlined-basic"
             label="Phone"
-            name="phone_number"
-            value={valueForm.phone_number}
+            name="phoneNumber"
+            value={valueForm.phoneNumber}
             onChange={onChange}
             color="primary"
             variant="outlined"
             size="small"
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">+62</InputAdornment>
+                <InputAdornment position="start">+212</InputAdornment>
               ),
             }}
           />
@@ -274,11 +296,11 @@ export default function ModalAddNurse(props) {
             </RadioGroup>
           </FormControl>
         </div>
-        <div>
+        {/* <div>
           {message.status === false ? (
             <div className="text-red-500 text-sm my-2">{message.message}</div>
           ) : null}
-        </div>
+        </div> */}
         <div className="flex flex-col justify-center gap-2 mx-4  md:justify-end md:flex-row">
           <button onSubmit={onClick} className="btn-main btn-primary">
             Submit
