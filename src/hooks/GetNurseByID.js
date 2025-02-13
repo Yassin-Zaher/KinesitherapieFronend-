@@ -25,7 +25,7 @@ export default function GetNurseByID(refresh) {
 
   const getDataNurseByID = (id) => {
     api
-      .get(`/api/v1/admins/nurse/${id}`)
+      .get(`api/users/${id}`)
       .then((res) => {
         setDataNurseByID(res.data);
         setProperties({

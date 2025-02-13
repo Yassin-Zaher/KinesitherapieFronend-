@@ -102,7 +102,7 @@ export default function NurseManagemet() {
                   className="btn-main btn-primary"
                   onClick={() => {
                     handleEditOpen();
-                    setRowData(tableMeta.rowData);
+                    setRowData(newData[tableMeta.rowIndex]); // Store the entire object
                   }}
                 >
                   <div className="flex items-center">
@@ -165,14 +165,13 @@ export default function NurseManagemet() {
     },
   };
 
-  //let newData = [];
   const newData = Array.isArray(dataNurses)
     ? dataNurses.map((item) => ({
         id: item.id,
         nom: item.nom,
         email: item.email,
         prenom: item.prenom,
-        password: item.password,
+        motDePasse: item.motDePasse,
         address: item.address,
         phoneNumber: item.phoneNumber,
         gender: item.gender,

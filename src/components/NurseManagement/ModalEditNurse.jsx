@@ -18,21 +18,23 @@ export default function ModalEditNurse(props) {
   const { resultEditNurse, sendDataToServer, submitted } = EditNurse();
 
   const initState = {
-    id: rowData[0],
-    fullname: rowData[1],
-    username: rowData[2],
-    password: rowData[3],
-    phone_number: rowData[6]?.slice(2),
-    address: rowData[5],
-    dob: rowData[7],
-    gender: rowData[4],
+    id: rowData.id,
+    email: rowData.email,
+    nom: rowData.nom,
+    prenom: rowData.prenom,
+    motDePasse: rowData.motDePasse,
+    phoneNumber: rowData.phoneNumber?.slice(3),
+    address: rowData.address,
+    dob: rowData.dob,
+    gender: rowData.gender,
   };
 
   const initFormErr = {
-    fullname: "",
-    username: "",
-    password: "",
-    phone_number: "",
+    email: "",
+    nom: "",
+    prenom: "",
+    motDePasse: "",
+    phoneNumber: "",
     address: "",
     dob: "",
     gender: "",
@@ -43,8 +45,9 @@ export default function ModalEditNurse(props) {
   const [formErr, setformErr] = useState(initFormErr);
 
   const regexName = /^[A-Za-z ]*$/;
-  const regexUsername = /^[A-Za-z0-9]*$/;
-  const regexPassword = /^[A-Za-z0-9]*$/;
+  const regexnom = /^[A-Za-z0-9]*$/;
+  const regexemail = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+  const regexmotDePasse = /^[A-Za-z0-9]*$/;
   const regexPhone = /^[0-9]{11,12}$/;
   const regexAddress = /^[a-zA-Z0-9\s,'-]*$/;
 
@@ -56,35 +59,45 @@ export default function ModalEditNurse(props) {
     const name = e.target.name;
     const value = e.target.value;
 
-    if (name === "fullname") {
+    if (name === "email") {
+      if (regexemail.test(value)) {
+        setformErr({ ...formErr, [name]: "" });
+      } else {
+        setformErr({ ...formErr, [name]: "Enter a valid email" });
+      }
+    }
+
+    if (name === "nom") {
+      if (regexnom.test(value)) {
+        setformErr({ ...formErr, [name]: "" });
+      } else {
+        setformErr({ ...formErr, [name]: "Invalid nom" });
+      }
+    }
+    if (name === "prenom") {
       if (regexName.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
-        setformErr({ ...formErr, [name]: "Name cannot contain numbers" });
+        setformErr({ ...formErr, [name]: "Invalid nom" });
       }
     }
 
-    if (name === "username") {
-      if (regexUsername.test(value)) {
+    if (name === "motDePasse") {
+      if (regexmotDePasse.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
-        setformErr({ ...formErr, [name]: "Invalid Username" });
+        setformErr({ ...formErr, [name]: "Invalid mot De Passe" });
       }
     }
 
-    if (name === "password") {
-      if (regexPassword.test(value)) {
-        setformErr({ ...formErr, [name]: "" });
-      } else {
-        setformErr({ ...formErr, [name]: "Invalid Password" });
-      }
-    }
-
-    if (name === "phone_number") {
+    if (name === "phoneNumber") {
       if (regexPhone.test(value)) {
         setformErr({ ...formErr, [name]: "" });
       } else {
-        setformErr({ ...formErr, [name]: "Phone number must be filled in 11 -12 digits" });
+        setformErr({
+          ...formErr,
+          [name]: "Phone number must be filled in 11 -12 digits",
+        });
       }
     }
 
@@ -112,10 +125,11 @@ export default function ModalEditNurse(props) {
   const onClick = (e) => {
     e.preventDefault();
     if (
-      formErr.fullname === "" &&
-      formErr.username === "" &&
-      formErr.password === "" &&
-      formErr.phone_number === "" &&
+      formErr.email === "" &&
+      formErr.nom === "" &&
+      formErr.prenom === "" &&
+      formErr.motDePasse === "" &&
+      formErr.phoneNumber === "" &&
       formErr.address === "" &&
       valueForm.dob !== "" &&
       valueForm.gender !== ""
@@ -139,14 +153,14 @@ export default function ModalEditNurse(props) {
       <form onSubmit={onClick}>
         <div className="my-4">
           <TextField
-            {...(formErr.fullname !== ""
-              ? { error: true, helperText: formErr.fullname }
+            {...(formErr.email !== ""
+              ? { error: true, helperText: formErr.email }
               : null)}
             fullWidth
             id="outlined-basic"
-            label="Fullname"
-            name="fullname"
-            value={valueForm.fullname}
+            label="email"
+            name="email"
+            value={valueForm.email}
             onChange={onChange}
             color="primary"
             variant="outlined"
@@ -155,14 +169,31 @@ export default function ModalEditNurse(props) {
         </div>
         <div className="my-4">
           <TextField
-            {...(formErr.username !== ""
-              ? { error: true, helperText: formErr.username }
+            {...(formErr.nom !== ""
+              ? { error: true, helperText: formErr.nom }
               : null)}
             fullWidth
             id="outlined-basic"
-            label="Username"
-            name="username"
-            value={valueForm.username}
+            label="nom"
+            name="nom"
+            value={valueForm.nom}
+            onChange={onChange}
+            color="primary"
+            variant="outlined"
+            size="small"
+          />
+        </div>
+
+        <div className="my-4">
+          <TextField
+            {...(formErr.prenom !== ""
+              ? { error: true, helperText: formErr.prenom }
+              : null)}
+            fullWidth
+            id="outlined-basic"
+            label="prenom"
+            name="prenom"
+            value={valueForm.prenom}
             onChange={onChange}
             color="primary"
             variant="outlined"
@@ -171,14 +202,14 @@ export default function ModalEditNurse(props) {
         </div>
         <div className="my-4">
           <TextField
-            {...(formErr.password !== ""
-              ? { error: true, helperText: formErr.password }
+            {...(formErr.motDePasse !== ""
+              ? { error: true, helperText: formErr.motDePasse }
               : null)}
             fullWidth
             id="outlined-basic"
-            label="Password"
-            name="password"
-            value={valueForm.password}
+            label="motDePasse"
+            name="motDePasse"
+            value={valueForm.motDePasse}
             onChange={onChange}
             color="primary"
             variant="outlined"
@@ -187,21 +218,21 @@ export default function ModalEditNurse(props) {
         </div>
         <div className="my-4">
           <TextField
-            {...(formErr.phone_number !== ""
-              ? { error: true, helperText: formErr.phone_number }
+            {...(formErr.phoneNumber !== ""
+              ? { error: true, helperText: formErr.phoneNumber }
               : null)}
             fullWidth
             id="outlined-basic"
             label="Phone"
-            name="phone_number"
-            value={valueForm.phone_number}
+            name="phoneNumber"
+            value={valueForm.phoneNumber}
             onChange={onChange}
             color="primary"
             variant="outlined"
             size="small"
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">+62</InputAdornment>
+                <InputAdornment position="start">+212</InputAdornment>
               ),
             }}
           />

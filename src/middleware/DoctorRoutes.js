@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/loginSlice";
 
 export default function DoctorRoutes(props) {
-  const navigate = useNavigate();
+  /* const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const bearerToken = useSelector((state) => state.login.token);
@@ -17,6 +17,6 @@ export default function DoctorRoutes(props) {
       dispatch(logout());
       navigate("/login-doctor");
     }
-  }, [navigate, decoded.role, decoded.exp, dispatch]);
+  }, [navigate, decoded.role, decoded.exp, dispatch]); */
   return props.children;
 }

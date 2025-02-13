@@ -16,6 +16,8 @@ export default function ModalDeleteNurse(props) {
     gender: rowData[8],
   };
 
+  console.log(rowData);
+
   const [valueForm, setvalueForm] = useState(initState);
   const [submittedForm, setSubmittedForm] = useState(submitted);
 

@@ -16,29 +16,23 @@ export default function EditNurse() {
     },
   });
 
-  const [resultEditNurse, setResultEditNurse] = useState({
-    meta: {
-      rc: 0,
-      message: "",
-      messages: [],
-    },
-    data: {},
-  });
+  const [resultEditNurse, setResultEditNurse] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const sendDataToServer = (payload) => {
     let id = payload.id;
     payload = {
-      username: payload.username,
-      password: payload.password,
-      fullname: payload.fullname,
+      email: payload.email,
+      motDePasse: payload.motDePasse,
+      nom: payload.nom,
+      prenom: payload.prenom,
       address: payload.address,
-      phone_number: "62" + payload.phone_number,
+      phoneNumber: "212" + payload.phoneNumber,
       dob: payload.dob,
       gender: payload.gender,
     };
     api
-      .put(`/api/v1/admins/update/nurse/${id}`, payload)
+      .put(`/api/users/secretaires/${id}`, payload)
       .then((res) => {
         setResultEditNurse(res.data);
         setSubmitted(true);
